@@ -22,9 +22,9 @@ export function Section({ id, children, className = '' }: { id: SceneId; childre
 /* ───────────── Magnetic pill button with slide-up fill + roll text ───────────── */
 type BtnProps = {
   children: string; variant?: 'red' | 'outline' | 'ink'; href?: string; onClick?: () => void;
-  cursor?: string; download?: boolean; external?: boolean;
+  cursor?: string; download?: string; external?: boolean; ariaLabel?: string;
 };
-export function Button({ children, variant = 'red', href, onClick, cursor = 'Go', download, external }: BtnProps) {
+export function Button({ children, variant = 'red', href, onClick, cursor = 'Go', download, external, ariaLabel }: BtnProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   useEffect(() => {
     if (isTouch()) return;
@@ -47,9 +47,10 @@ export function Button({ children, variant = 'red', href, onClick, cursor = 'Go'
       className={`btn btn--${variant}`}
       href={href ?? '#'}
       data-cursor={cursor}
-      download={download || undefined}
+      download={download}
+      aria-label={ariaLabel}
       target={external ? '_blank' : undefined}
-      rel={external ? 'noreferrer' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
       onClick={(e) => { if (onClick) { e.preventDefault(); onClick(); } }}
     >
       <span className="btn__fill" />

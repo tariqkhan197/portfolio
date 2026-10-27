@@ -150,5 +150,13 @@ export function scrollToScene(id: SceneId) {
   lenis?.scrollTo(target, { duration: 2.2, easing: easeOutQuart });
 }
 
+/** Scroll so a scene sits at progress p (0..1) — used to bring a focused certificate to the front. */
+export function scrollToSceneProgress(id: SceneId, p: number) {
+  const st = state.s[id];
+  const target = st.top + clamp(p) * Math.max(0, st.h - state.vh);
+  if (Math.abs(target - state.y) < 4) return;
+  lenis?.scrollTo(target, { duration: 1.1, easing: easeOutQuart });
+}
+
 export const isContactLit = (s: State) => SCENES[s.cur]?.id === 'contact' && s.t > 0.6;
 export const isSceneActive = (s: State, id: SceneId) => SCENES[s.cur]?.id === id;

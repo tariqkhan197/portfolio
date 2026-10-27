@@ -102,7 +102,7 @@ export default function Work() {
                 <h3 className="card__name">{p.name}</h3>
                 <p className="card__desc">{p.desc}</p>
                 <ul className="chips">{p.chips.map((c) => <li key={c}>{c}</li>)}</ul>
-                <a className="card__link" href={p.link} target="_blank" rel="noreferrer" data-cursor="Open">View on GitHub ↗</a>
+                <a className="card__link" href={p.link} target="_blank" rel="noopener noreferrer" data-cursor="Open" aria-label={`View ${p.name} on GitHub (opens in new tab)`}>View on GitHub ↗</a>
               </div>
               <div className="card__r"><Mock kind={p.visual} /></div>
             </article>

@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { Section } from '../components/Chrome';
 import { useDirector } from '../engine/hooks';
-import { clamp, easeOutCubic, textFade } from '../engine/director';
-import { counters, certifications } from '../data';
+import { clamp, easeOutCubic, textFade, scrollToSceneProgress } from '../engine/director';
+import { counters, certifications, certificateUrl } from '../data';
 
 const N = certifications.length;
 const STEP = 360 / N;
@@ -44,13 +44,46 @@ export default function Awards() {
           <div className="cyl-scale">
             <div className="cyl" ref={cyl}>
               {certifications.map((c, i) => (
-                <div className={`cert ${i % 3 === 2 ? 'cert--red' : ''}`} key={c.title} style={{ transform: `rotateY(${STEP * i}deg) translateZ(360px)` }}>
-                  <div className="cert__face cert__front">
-                    <span className="cert__issuer">{c.issuer}</span>
+                <div
+                  className={`cert ${i % 3 === 2 ? 'cert--red' : ''}`}
+                  key={c.file}
+                  style={{ transform: `rotateY(${STEP * i}deg) translateZ(360px)` }}
+                  onFocus={(e) => {
+                    // keyboard focus only — a mouse click must not rotate the ring mid-click
+                    if ((e.target as HTMLElement).matches(':focus-visible')) scrollToSceneProgress('awards', i / (N - 1));
+                  }}
+                >
+                  <article className="cert__face cert__front">
+                    <div className="cert__top">
+                      <span className="cert__issuer">{c.issuer}</span>
+                      <span className="cert__date">{c.date}</span>
+                    </div>
                     <h3 className="cert__title">{c.title}</h3>
-                    <span className="cert__seal">✓</span>
-                  </div>
-                  <div className="cert__face cert__back"><span>{c.issuer}</span><span className="cert__seal">✓</span></div>
+                    <div className="cert__actions">
+                      <a
+                        className="cert__view"
+                        href={certificateUrl(c)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor="PDF"
+                        aria-label={`View ${c.title} certificate (PDF, opens in new tab)`}
+                      >
+                        View Certificate <i aria-hidden="true">↗</i>
+                      </a>
+                      <a
+                        className="cert__verify"
+                        href={c.verifyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor="Open"
+                        aria-label={`Verify ${c.title} certificate on Coursera (opens in new tab)`}
+                      >
+                        Verify
+                      </a>
+                    </div>
+                    <span className="cert__seal" aria-hidden="true">✓</span>
+                  </article>
+                  <div className="cert__face cert__back" aria-hidden="true"><span>{c.issuer}</span><span className="cert__seal">✓</span></div>
                 </div>
               ))}
             </div>

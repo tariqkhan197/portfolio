@@ -324,10 +324,10 @@ html.has-cursor .cur-ring { display: grid; }
 .flip__num span { font-size: 0.55em; vertical-align: 0.62em; margin-left: 2px; }
 .flip--ink .flip__num span { color: var(--red); }
 .flip__label { margin-top: 8px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.85; line-height: 1.35; }
-.cyl-stage { position: relative; height: 330px; perspective: 1600px; opacity: 0; }
+.cyl-stage { position: relative; height: 350px; perspective: 1600px; opacity: 0; }
 .cyl-scale { position: absolute; inset: 0; transform-style: preserve-3d; }
 .cyl { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
-.cert { position: absolute; width: 290px; height: 178px; left: -145px; top: -89px; transform-style: preserve-3d; }
+.cert { position: absolute; width: 290px; height: 196px; left: -145px; top: -98px; transform-style: preserve-3d; }
 .cert__face {
   position: absolute; inset: 0; border-radius: 20px; padding: 20px; display: flex; flex-direction: column;
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
@@ -340,9 +340,39 @@ html.has-cursor .cur-ring { display: grid; }
 }
 .cert__issuer { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--mute); }
 .cert--red .cert__issuer { color: rgba(255, 255, 255, 0.85); }
-.cert__title { margin-top: 10px; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 25px; line-height: 1.02; max-width: 82%; }
+.cert__front { padding: 18px 18px 16px; transition: box-shadow 0.4s var(--ease), border-color 0.4s; }
+.cert__front:hover { border-color: rgba(255, 31, 31, 0.45); box-shadow: 0 26px 50px -22px rgba(255, 31, 31, 0.45); }
+.cert--red .cert__front:hover { box-shadow: 0 26px 50px -18px rgba(255, 31, 31, 0.7); }
+.cert__top { display: flex; justify-content: space-between; gap: 8px; }
+.cert__date { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--red); white-space: nowrap; }
+.cert--red .cert__date { color: #fff; }
+.cert__title {
+  margin-top: 10px; font-family: var(--display); font-weight: 400; text-transform: uppercase;
+  font-size: 21px; line-height: 1.04; max-width: 86%;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cert__actions { margin-top: auto; display: flex; align-items: center; gap: 14px; padding-right: 40px; }
+.cert__view {
+  display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 13px; border-radius: 999px;
+  background: var(--red); color: #fff; font-weight: 600; font-size: 12.5px; letter-spacing: -0.01em; white-space: nowrap;
+  transition: background 0.35s var(--ease), color 0.35s var(--ease);
+}
+.cert__view i { font-style: normal; display: inline-block; transition: transform 0.4s var(--ease); }
+.cert__view:hover { background: var(--ink); }
+.cert__view:hover i { transform: rotate(45deg); }
+.cert--red .cert__view { background: #fff; color: var(--red); }
+.cert--red .cert__view:hover { background: var(--ink); color: #fff; }
+.cert__verify {
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--mute);
+  border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.3s;
+}
+.cert__verify:hover { color: var(--red); }
+.cert--red .cert__verify { color: rgba(255, 255, 255, 0.9); }
+.cert--red .cert__verify:hover { color: var(--ink); }
+.cert__front a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.cert--red .cert__front a:focus-visible { outline-color: #fff; }
 .cert__seal {
-  position: absolute; right: 18px; bottom: 16px; width: 36px; height: 36px; border-radius: 50%;
+  position: absolute; right: 16px; bottom: 16px; width: 32px; height: 32px; border-radius: 50%;
   border: 2px solid var(--red); color: var(--red); display: grid; place-items: center; font-size: 16px; font-family: var(--body); font-weight: 700;
 }
 .cert--red .cert__seal { border-color: #fff; color: #fff; }
@@ -375,6 +405,10 @@ html.has-cursor .cur-ring { display: grid; }
 .links a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
 .links i { font-style: normal; display: inline-block; transition: transform 0.45s var(--ease); }
 .links a:hover i { transform: rotate(45deg); }
+.links a:hover i.links__dl { transform: translateY(3px); }
+.links__label { display: inline-flex; align-items: center; gap: 10px; }
+.links__icon { flex: none; }
+.contact a:focus-visible { outline-color: #fff; }
 .foot {
   position: absolute; left: 5vw; right: 5vw; bottom: 4vh; display: flex; justify-content: space-between;
   font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
@@ -434,14 +468,14 @@ html.has-cursor .cur-ring { display: grid; }
   .flip { padding: 12px; border-radius: 16px; }
   .flip__num { font-size: 36px; }
   .flip__label { font-size: 9px; }
-  .cyl-stage { height: 220px; }
-  .cyl-scale { transform: scale(0.7); }
+  .cyl-stage { height: 240px; }
+  .cyl-scale { transform: scale(0.74); }
 
   .contact .label { left: 6vw; }
   .mail { left: 6vw; right: 6vw; bottom: 30vh; font-size: 9.6vw; }
   .mail__d { color: #fff; }
   .links { left: 6vw; right: 6vw; width: auto; bottom: 9vh; }
-  .links a { padding: 11px 0; font-size: 16px; }
+  .links a { padding: 9px 0; font-size: 15px; }
   .foot { left: 6vw; right: 6vw; bottom: 3vh; font-size: 10px; }
 }
 
@@ -461,3 +495,9 @@ html.has-cursor .cur-ring { display: grid; }
   .mail { bottom: 36vh; }
   .contact .label { top: auto; bottom: 49vh; }
 }
+
+/* Certificate ring hit-testing: the 3D wrappers are transparent layers that sit
+   in front of the (translateZ'd) cards and were swallowing clicks. Let pointer
+   events pass through them; only the visible card faces are interactive. */
+.cyl-stage, .cyl-scale, .cyl, .cert, .cert__back { pointer-events: none; }
+.cert__front { pointer-events: auto; }

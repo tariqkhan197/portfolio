@@ -57,7 +57,7 @@ export default function Hero() {
           <p className="hero__desc"><span className="hl" ref={hl}>{tagline}</span></p>
           <div className="hero__btns">
             <Button onClick={() => scrollToScene('work')} cursor="Go">See my work ↘</Button>
-            <Button variant="outline" href={person.resume} cursor="PDF" download>Download résumé</Button>
+            <Button variant="outline" href={person.cv} cursor="PDF" external ariaLabel="View CV (PDF, opens in new tab)">View CV</Button>
           </div>
         </div>
       </Section>

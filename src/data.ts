@@ -1,9 +1,14 @@
 // ─────────────────────────────────────────────────────────────
 //  ALL site content lives here. Edit this file only.
-//  Source: Tariq Khan résumé (public/resume.pdf).
+//  Source: Tariq Khan CV (public/Tariq_Khan_CV.pdf).
 //  Items marked  ⚠ EDIT  are not on the résumé — replace them
 //  with your real values before publishing.
 // ─────────────────────────────────────────────────────────────
+
+/** Base-path-aware URL for a file in /public. Vite sets BASE_URL from
+ *  vite.config `base` ('./'), so this resolves correctly on GitHub Pages
+ *  (/portfolio/) and on Vercel (/). */
+export const asset = (path: string): string => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
 
 export const person = {
   first: 'Tariq',
@@ -12,9 +17,10 @@ export const person = {
   role: ['Full-Stack', 'AI Developer.'] as const,
   location: 'Islamabad, Pakistan',
   email: 'ta5549611@gmail.com',
-  // GitHub profile used by every “View on GitHub” link and the Contact list
   github: 'https://github.com/tariqkhan197',
-  resume: './resume.pdf',
+  linkedin: 'https://www.linkedin.com/in/tairq-khan-0a28b6444/',
+  cv: asset('Tariq_Khan_CV.pdf'),
+  cvFileName: 'Tariq_Khan_CV.pdf',
 };
 
 // Hero — three-line description (~190 chars)
@@ -95,13 +101,24 @@ export const counters = [
   { value: 4, suffix: '+', label: 'Client-style websites' },
 ];
 
-export const certifications = [
-  { title: 'Building Agentic AI Systems', issuer: 'Coursera' },
-  { title: 'Front-End Development', issuer: 'Coursera' },
-  { title: 'Generative AI for Software Development', issuer: 'Coursera' },
-  { title: 'Marketing Analytics', issuer: 'Coursera' },
-  { title: 'Introduction to Selenium Testing', issuer: 'Coursera' },
-  { title: 'WordPress Website Development', issuer: 'Coursera' },
+export type Certificate = {
+  title: string;
+  issuer: string;
+  date: string;
+  /** file name inside public/certificates/ */
+  file: string;
+  verifyUrl: string;
+};
+
+export const certifications: Certificate[] = [
+  { title: 'Building Agentic AI Systems', issuer: 'Packt · Coursera', date: 'Jul 13, 2026', file: 'building-agentic-ai-systems.pdf', verifyUrl: 'https://coursera.org/verify/4NJ1DP1K88UJ' },
+  { title: 'Introduction to Front-End Development', issuer: 'Meta · Coursera', date: 'Jul 16, 2026', file: 'front-end-development.pdf', verifyUrl: 'https://coursera.org/verify/GHX0TY7VCX43' },
+  { title: 'Introduction to Generative AI for Software Development', issuer: 'DeepLearning.AI · Coursera', date: 'Jul 15, 2026', file: 'generative-ai-for-software-development.pdf', verifyUrl: 'https://coursera.org/verify/HB5VTA32TAGO' },
+  { title: 'Marketing Analytics Foundation', issuer: 'Meta · Coursera', date: 'Jul 17, 2026', file: 'marketing-analytics.pdf', verifyUrl: 'https://coursera.org/verify/4JG6XF4NBLUW' },
+  { title: 'Introduction to Selenium', issuer: 'Starweaver · Coursera', date: 'Jul 13, 2026', file: 'software-testing-with-selenium.pdf', verifyUrl: 'https://coursera.org/verify/EBYQ1STUPH6O' },
+  { title: 'Build a Full Website using WordPress (Project)', issuer: 'Coursera', date: 'Jul 11, 2026', file: 'wordpress-website-development.pdf', verifyUrl: 'https://coursera.org/verify/75XBR1N404WV' },
 ];
+
+export const certificateUrl = (c: Certificate): string => asset(`certificates/${c.file}`);
 
 export const year = new Date().getFullYear();

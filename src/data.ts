@@ -16,7 +16,7 @@ export const person = {
   full: 'Tariq Khan',
   role: ['Full-Stack', 'AI Developer.'] as const,
   location: 'Islamabad, Pakistan',
-  email: 'ta5549611@gmail.com',
+  email: 'tariqkhandev.nutech@gmail.com',
   github: 'https://github.com/tariqkhan197',
   linkedin: 'https://www.linkedin.com/in/tairq-khan-0a28b6444/',
   cv: asset('Tariq_Khan_CV.pdf'),

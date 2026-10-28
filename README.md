@@ -7,7 +7,7 @@ The site is a **scroll-driven experience**: as you scroll, a pre-rendered frame 
 <!-- Add a screenshot or GIF here -->
 <!-- ![Portfolio preview](./docs/preview.png) -->
 
-🔗 **Live demo:** _add your deployed link here_
+🔗 **Live demo:** https://portfolio-5u3j.vercel.app/
 
 ---
 
